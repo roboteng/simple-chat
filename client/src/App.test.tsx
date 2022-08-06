@@ -11,3 +11,10 @@ test('Message textfield is cleared when the "Send" button is pressed', () => {
   userEvent.click(send);
   expect(textbox).toHaveValue("");
 });
+
+test("Message is saved while typing", () => {
+  render(<App />);
+  const textbox = screen.getByRole("textbox");
+  userEvent.type(textbox, "Hello, world!");
+  expect(textbox).toHaveValue("Hello, world!");
+});
