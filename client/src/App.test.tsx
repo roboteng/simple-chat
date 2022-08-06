@@ -8,4 +8,6 @@ test('Message textfield is cleared when the "Send" button is pressed', () => {
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
   const send = screen.getByText(/send/i);
+  userEvent.click(send);
+  expect(textbox).toHaveValue("");
 });
