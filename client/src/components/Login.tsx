@@ -1,6 +1,12 @@
+import { useEffect, useState } from "react";
 import { LoginService } from "../services/LoginService";
 
 export function Login({ service }: { service: LoginService }) {
+  const [isValid, setValid] = useState<boolean | undefined>(undefined)
+  useEffect(() => {
+    service.isValid("", "")
+      .then(setValid)
+  }, [service])
 
   return <>
     <label>
@@ -12,8 +18,13 @@ export function Login({ service }: { service: LoginService }) {
       <input type="passsword" />
     </label>
     <input type="button" value="Login" />
-    <span>
-      Could not sign in
-    </span>
+    {isValid === undefined
+      ? null
+      : isValid
+        ? null
+        : <span>
+          Could not sign in
+        </span>
+    }
   </>;
 }

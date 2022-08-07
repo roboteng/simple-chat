@@ -1,35 +1,41 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 import { InMemory } from './services/MessageService';
 
-test('Message textfield is cleared when the "Send" button is pressed', () => {
+test('Message textfield is cleared when the "Send" button is pressed', async () => {
   render(<App messageService={new InMemory()} />);
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
   const send = screen.getByText(/send/i);
   userEvent.click(send);
-  expect(textbox).toHaveValue("");
+  await waitFor(() => {
+    expect(textbox).toHaveValue("");
+  })
 });
 
-test("Message is saved while typing", () => {
+test("Message is saved while typing", async () => {
   render(<App messageService={new InMemory()} />);
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
-  expect(textbox).toHaveValue("Hello, world!");
+  await waitFor(() => {
+    expect(textbox).toHaveValue("Hello, world!");
+  })
 });
 
-test("The sent message should still be visible on screen", () => {
+test("The sent message should still be visible on screen", async () => {
   render(<App messageService={new InMemory()} />);
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
   const send = screen.getByText(/send/i);
   userEvent.click(send);
-  expect(screen.getByText(/Hello, world!/)).toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.getByText(/Hello, world!/)).toBeInTheDocument();
+  })
 })
 
-test("All previous sent message should still be visible on screen", () => {
+test("All previous sent message should still be visible on screen", async () => {
   render(<App messageService={new InMemory()} />);
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
@@ -37,9 +43,7 @@ test("All previous sent message should still be visible on screen", () => {
   userEvent.click(send);
   userEvent.type(textbox, "Its me");
   userEvent.click(send);
-  expect(screen.getByText(/Hello, world!/)).toBeInTheDocument();
-})
-
-test("The username should get sent whan a message is sent", async () => {
-  render(<App messageService={new InMemory()} />);
+  await waitFor(() => {
+    expect(screen.getByText(/Hello, world!/)).toBeInTheDocument();
+  })
 })

@@ -19,7 +19,7 @@ function App(props: { messageService: MessageService }) {
 
   useEffect(() => {
     props.messageService.getMessages()
-      .then(data => setPrevMessage(data))
+      .then(setPrevMessage)
   }, [props.messageService])
 
   return (
