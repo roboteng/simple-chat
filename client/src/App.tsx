@@ -7,12 +7,17 @@ function App() {
   const [prevMessages, setPrevMessage] = useState<string[]>([]);
   const clearMessage = () => {
     setPrevMessage([...prevMessages, message]);
-    setMessage("")
+    setMessage("");
+    (async (message) => {
+      await axios.post("http://localhost:45678/api/messages", { body: message })
+
+    })(message)
   };
   const saveMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value);
 
   useEffect(() => {
-    axios.get("http://localhost:45678/api/messages").then(res => console.log(res.data))
+    axios.get("http://localhost:45678/api/messages")
+      .then(res => setPrevMessage(res.data.map((m: { body: string }) => m.body)))
   })
 
   return (
