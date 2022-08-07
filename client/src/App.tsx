@@ -3,9 +3,9 @@ import './App.css';
 
 function App() {
   const [message, setMessage] = useState("");
-  const [prevMessage, setPrevMessage] = useState<string | undefined>(undefined);
+  const [prevMessage, setPrevMessage] = useState<string[]>([]);
   const clearMessage = () => {
-    setPrevMessage(message);
+    setPrevMessage([...prevMessage, message]);
     setMessage("")
   };
   const saveMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value);
@@ -15,9 +15,9 @@ function App() {
       <textarea onChange={saveMessage} value={message} />
       <button onClick={clearMessage}>Send</button>
       <div>
-        <span>
-          {prevMessage}
-        </span>
+        <ul>
+          {prevMessage.map(m => <li>{m}</li>)}
+        </ul>
       </div>
     </div>
   );
