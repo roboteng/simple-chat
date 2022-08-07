@@ -3,12 +3,22 @@ import './App.css';
 
 function App() {
   const [message, setMessage] = useState("");
-  const clearMessage = () => setMessage("");
+  const [prevMessage, setPrevMessage] = useState<string | undefined>(undefined);
+  const clearMessage = () => {
+    setPrevMessage(message);
+    setMessage("")
+  };
+  const saveMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value);
 
   return (
     <div className="App">
-      <textarea onChange={(e) => setMessage(e.target.value)} value={message} />
+      <textarea onChange={saveMessage} value={message} />
       <button onClick={clearMessage}>Send</button>
+      <div>
+        <span>
+          {prevMessage}
+        </span>
+      </div>
     </div>
   );
 }
