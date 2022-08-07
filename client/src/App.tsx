@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { MessageService } from './messageService/MessageService';
+import { MessageService } from './services/MessageService';
 
 type Message = {
   user: string,

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
-import { InMemory } from './messageService/MessageService';
+import { InMemory } from './services/MessageService';
 
 test('Message textfield is cleared when the "Send" button is pressed', () => {
   render(<App messageService={new InMemory()} />);
@@ -38,4 +38,8 @@ test("All previous sent message should still be visible on screen", () => {
   userEvent.type(textbox, "Its me");
   userEvent.click(send);
   expect(screen.getByText(/Hello, world!/)).toBeInTheDocument();
+})
+
+test("The username should get sent whan a message is sent", async () => {
+  render(<App messageService={new InMemory()} />);
 })
