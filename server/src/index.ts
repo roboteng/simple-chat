@@ -1,12 +1,8 @@
-import express from "express";
+import { createApp } from "./app";
 
 const port = 45678;
 
-const app = express();
-
-app.get("/ping", (req, res) => {
-  res.send("pong");
-})
+const app = createApp();
 
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}/`)
