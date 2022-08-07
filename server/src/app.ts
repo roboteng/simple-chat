@@ -1,17 +1,19 @@
 import express, { Request } from "express";
 import cors from "cors";
 
+type Message = { user: string, body: string }
+
 export function createApp(): express.Express {
   const app = express();
-  const messages: string[] = [];
+  const messages: Message[] = [];
   app.use(cors())
   app.use(express.json())
   app.get("/api/messages", (req, res) => {
-    res.json(messages.map(m => ({ body: m })));
+    res.json(messages);
   });
 
   app.post("/api/messages", (req: Request<{ body: string }, { body: string }, { body: string }, { body: string }>, res) => {
-    const message = req.body.body;
+    const message = req.body as Message;
     if (message) {
       messages.push(message)
     }

@@ -14,10 +14,11 @@ test("A message is sent back, once it is posted", async () => {
   await supertest(app)
     .post("/api/messages")
     .send({
+      user: "me",
       body: "Hello, world"
     });
   const res = await supertest(app)
     .get("/api/messages")
     .send();
-  expect(res.body).toEqual([{ body: "Hello, world" }]);
+  expect(res.body).toEqual([{ user: "me", body: "Hello, world" }]);
 });

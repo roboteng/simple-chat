@@ -1,24 +1,26 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { MessageService } from './messageService/MessageService';
 
-function App() {
+type Message = {
+  user: string,
+  body: string,
+}
+
+function App(props: { messageService: MessageService }) {
   const [message, setMessage] = useState("");
-  const [prevMessages, setPrevMessage] = useState<string[]>([]);
+  const [prevMessages, setPrevMessage] = useState<Message[]>([]);
   const clearMessage = () => {
-    setPrevMessage([...prevMessages, message]);
+    setPrevMessage([...prevMessages, { user: "Me", body: message }]);
     setMessage("");
-    (async (message) => {
-      await axios.post("http://localhost:45678/api/messages", { body: message })
-
-    })(message)
+    props.messageService.postMessage({ body: message, user: "Sam" })
   };
   const saveMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value);
 
   useEffect(() => {
-    axios.get("http://localhost:45678/api/messages")
-      .then(res => setPrevMessage(res.data.map((m: { body: string }) => m.body)))
-  })
+    props.messageService.getMessages()
+      .then(data => setPrevMessage(data))
+  }, [props.messageService])
 
   return (
     <div className="App">
@@ -40,11 +42,13 @@ function MessageInput({ saveMessage, message, clearMessage }: {
 }
 
 function MessageDisplay({ prevMessages }: {
-  prevMessages: string[]
+  prevMessages: Message[]
 }) {
   return <>
     <ul>
-      {prevMessages.map((m, i) => <li key={i.toString()}>{m}</li>)}
+      {prevMessages.map((m, i) => <li key={i.toString()}>
+        {m.user} - {m.body}
+      </li>)}
     </ul>
   </>;
 }

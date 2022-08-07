@@ -10,8 +10,8 @@ An application that allows two users to send short text messages to each other, 
 ## Todos
 
 - [x] A user should be able to chat with themselves
-- [ ] Messages should be stored off of the client
-- [ ] A second user should be able to see and post new chat messages
+- [x] Messages should be stored off of the client
+- [x] A second user should be able to see and post new chat messages
 - [ ] The two users should be able to tell each other apart
 - [ ] When one user sends a message, the other should see it automatically
 - [ ] Users should need to authenticate to use the app
