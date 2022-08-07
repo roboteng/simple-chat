@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
@@ -9,6 +10,10 @@ function App() {
     setMessage("")
   };
   const saveMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value);
+
+  useEffect(() => {
+    axios.get("http://localhost:45678/api/messages").then(res => console.log(res.data))
+  })
 
   return (
     <div className="App">
@@ -26,18 +31,17 @@ function MessageInput({ saveMessage, message, clearMessage }: {
   return <>
     <textarea onChange={saveMessage} value={message} />
     <button onClick={clearMessage}>Send</button>
-  </>
+  </>;
 }
 
 function MessageDisplay({ prevMessages }: {
   prevMessages: string[]
 }) {
   return <>
-    <div>
-      <ul>
-        {prevMessages.map(m => <li>{m}</li>)}
-      </ul>
-    </div></>
+    <ul>
+      {prevMessages.map((m, i) => <li key={i.toString()}>{m}</li>)}
+    </ul>
+  </>;
 }
 
 export default App;
