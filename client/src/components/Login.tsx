@@ -6,10 +6,10 @@ export function Login({ service }: { service: LoginService }) {
   const [user, readUser] = useTextField();
   const [password, readPassword] = useTextField();
 
-  const [isValid, setValid] = useState<boolean | undefined>(undefined)
+  const [isWrong, setWrong] = useState<boolean | undefined>(undefined)
   const login = () => {
     service.isValid(user, password)
-      .then(setValid)
+      .then(valid => setWrong(!valid))
   }
 
   return <>
@@ -22,13 +22,11 @@ export function Login({ service }: { service: LoginService }) {
       <input type="passsword" onChange={readPassword} value={password} />
     </label>
     <input type="button" value="Login" onClick={login} />
-    {isValid === undefined
-      ? null
-      : isValid
-        ? null
-        : <span>
-          Could not sign in
-        </span>
+    {isWrong
+      ? <span>
+        Could not sign in
+      </span>
+      : null
     }
   </>;
 }
