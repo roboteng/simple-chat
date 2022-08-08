@@ -4,6 +4,9 @@ import Messenger from './Messenger';
 import userEvent from '@testing-library/user-event';
 import { InMemory } from '../services/MessageService';
 
+// Ideally, these tests would be changed so that we weren't testing the functionality of the service.
+// The tests were written before the service was created, so now they are testing both the service, and the UI
+
 test('Message textfield is cleared when the "Send" button is pressed', async () => {
   render(<Messenger messageService={new InMemory()} user={{ name: "" }} />);
   const textbox = screen.getByRole("textbox");

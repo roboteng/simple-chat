@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// Ideally, this would go in a shared folder for both client and server, since they both do this
+// Then the server's database could implement this as well
 export interface MessageService {
   postMessage(message: { user: string, body: string }): Promise<void>;
   getMessages(): Promise<{ user: string, body: string }[]>;

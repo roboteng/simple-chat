@@ -1,12 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import '../App.css';
-import { User } from '../models/models';
+import { Message, User } from '../models/models';
 import { MessageService } from '../services/MessageService';
-
-type Message = {
-  user: string,
-  body: string,
-}
 
 function Messenger(props: { messageService: MessageService, user: User }) {
   const [message, setMessage] = useState("");
