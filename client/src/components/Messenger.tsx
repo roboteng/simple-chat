@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import '../App.css';
 import { User } from '../models/models';
 import { MessageService } from '../services/MessageService';
@@ -18,10 +18,24 @@ function Messenger(props: { messageService: MessageService, user: User }) {
   };
   const saveMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value);
 
-  useEffect(() => {
+  const retreiveMessages = useCallback(() => {
     props.messageService.getMessages()
       .then(setPrevMessage)
-  }, [props.messageService])
+  }, [props.messageService]);
+
+  useEffect(() => {
+    const isAlive = { isAlive: true };
+    const updateMessages = () => {
+      if (isAlive.isAlive) {
+        retreiveMessages();
+        setTimeout(updateMessages, 1000);
+      }
+    }
+    updateMessages();
+    return () => {
+      isAlive.isAlive = false;
+    }
+  }, [retreiveMessages])
 
   return (
     <div className="App">
