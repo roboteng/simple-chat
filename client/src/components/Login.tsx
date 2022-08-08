@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTextField } from "../hooks/useTextField";
 import { LoginService } from "../services/LoginService";
 
@@ -7,10 +7,10 @@ export function Login({ service }: { service: LoginService }) {
   const [password, readPassword] = useTextField();
 
   const [isValid, setValid] = useState<boolean | undefined>(undefined)
-  useEffect(() => {
+  const login = () => {
     service.isValid("", "")
       .then(setValid)
-  }, [service])
+  }
 
   return <>
     <label>
@@ -21,7 +21,7 @@ export function Login({ service }: { service: LoginService }) {
       Password
       <input type="passsword" onChange={readPassword} value={password} />
     </label>
-    <input type="button" value="Login" />
+    <input type="button" value="Login" onClick={login} />
     {isValid === undefined
       ? null
       : isValid
