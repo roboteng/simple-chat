@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Messenger from './components/Messenger';
 import reportWebVitals from './reportWebVitals';
 import { ExternalHTTP } from './services/MessageService';
 
@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App messageService={new ExternalHTTP()} />
+    <Messenger messageService={new ExternalHTTP()} />
   </React.StrictMode>
 );
 

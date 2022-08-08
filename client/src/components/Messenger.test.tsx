@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import App from './App';
+import Messenger from './Messenger';
 import userEvent from '@testing-library/user-event';
-import { InMemory } from './services/MessageService';
+import { InMemory } from '../services/MessageService';
 
 test('Message textfield is cleared when the "Send" button is pressed', async () => {
-  render(<App messageService={new InMemory()} />);
+  render(<Messenger messageService={new InMemory()} />);
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
   const send = screen.getByText(/send/i);
@@ -16,7 +16,7 @@ test('Message textfield is cleared when the "Send" button is pressed', async () 
 });
 
 test("Message is saved while typing", async () => {
-  render(<App messageService={new InMemory()} />);
+  render(<Messenger messageService={new InMemory()} />);
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
   await waitFor(() => {
@@ -25,7 +25,7 @@ test("Message is saved while typing", async () => {
 });
 
 test("The sent message should still be visible on screen", async () => {
-  render(<App messageService={new InMemory()} />);
+  render(<Messenger messageService={new InMemory()} />);
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
   const send = screen.getByText(/send/i);
@@ -36,7 +36,7 @@ test("The sent message should still be visible on screen", async () => {
 })
 
 test("All previous sent message should still be visible on screen", async () => {
-  render(<App messageService={new InMemory()} />);
+  render(<Messenger messageService={new InMemory()} />);
   const textbox = screen.getByRole("textbox");
   userEvent.type(textbox, "Hello, world!");
   const send = screen.getByText(/send/i);

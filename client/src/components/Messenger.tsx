@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
-import { MessageService } from './services/MessageService';
+import '../App.css';
+import { MessageService } from '../services/MessageService';
 
 type Message = {
   user: string,
   body: string,
 }
 
-function App(props: { messageService: MessageService }) {
+function Messenger(props: { messageService: MessageService }) {
   const [message, setMessage] = useState("");
   const [prevMessages, setPrevMessage] = useState<Message[]>([]);
   const clearMessage = () => {
@@ -53,4 +53,4 @@ function MessageDisplay({ prevMessages }: {
   </>;
 }
 
-export default App;
+export default Messenger;
