@@ -8,7 +8,7 @@ export function Login({ service }: { service: LoginService }) {
 
   const [isValid, setValid] = useState<boolean | undefined>(undefined)
   const login = () => {
-    service.isValid("", "")
+    service.isValid(user, password)
       .then(setValid)
   }
 

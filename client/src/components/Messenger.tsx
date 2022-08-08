@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
+import { User } from '../models/models';
 import { MessageService } from '../services/MessageService';
 
 type Message = {
@@ -7,13 +8,13 @@ type Message = {
   body: string,
 }
 
-function Messenger(props: { messageService: MessageService }) {
+function Messenger(props: { messageService: MessageService, user: User }) {
   const [message, setMessage] = useState("");
   const [prevMessages, setPrevMessage] = useState<Message[]>([]);
   const clearMessage = () => {
     setPrevMessage([...prevMessages, { user: "Me", body: message }]);
     setMessage("");
-    props.messageService.postMessage({ body: message, user: "Sam" })
+    props.messageService.postMessage({ body: message, user: props.user.name })
   };
   const saveMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value);
 

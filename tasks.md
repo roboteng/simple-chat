@@ -12,8 +12,8 @@ An application that allows two users to send short text messages to each other, 
 - [x] A user should be able to chat with themselves
 - [x] Messages should be stored off of the client
 - [x] A second user should be able to see and post new chat messages
-- [ ] The two users should be able to tell each other apart
+- [x] The two users should be able to tell each other apart
 - [ ] When one user sends a message, the other should see it automatically
-- [ ] Users should need to authenticate to use the app
-- [ ] Messages should persist a client restart
+- [x] Users should need to authenticate to use the app
+- [x] Messages should persist a client restart
 - [ ] Messages should persist a server restart
